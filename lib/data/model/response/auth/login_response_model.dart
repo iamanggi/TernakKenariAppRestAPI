@@ -1,21 +1,21 @@
 import 'dart:convert';
 
-class LoginReqsponseModel {
+class LoginResponseModel {
     final String? message;
     final int? statusCode;
     final Data? data;
 
-    LoginReqsponseModel({
+    LoginResponseModel({
         this.message,
         this.statusCode,
         this.data,
     });
 
-    factory LoginReqsponseModel.fromJson(String str) => LoginReqsponseModel.fromMap(json.decode(str));
+    factory LoginResponseModel.fromJson(String str) => LoginResponseModel.fromMap(json.decode(str));
 
     String toJson() => json.encode(toMap());
 
-    factory LoginReqsponseModel.fromMap(Map<String, dynamic> json) => LoginReqsponseModel(
+    factory LoginResponseModel.fromMap(Map<String, dynamic> json) => LoginResponseModel(
         message: json["message"],
         statusCode: json["status_code"],
         data: json["data"] == null ? null : Data.fromMap(json["data"]),

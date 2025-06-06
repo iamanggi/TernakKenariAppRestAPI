@@ -20,20 +20,43 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context)=>
-        LoginBloc(authRepository: AuthRepository(ServiceHttpClient()))),
-        BlocProvider(create: (context)=>
-        RegisterBloc(authRepository: AuthRepository(ServiceHttpClient()))),
-        BlocProvider(create: (context)=> ProfileBuyerBloc(profileBuyerRepository: ProfileBuyerRepository(ServiceHttpClient()))),
-        BlocProvider(create: (context)=> GetBurungTersediaBloc(getAllBurungTersediaRepository: GetAllBurungTersediaRepository(ServiceHttpClient())))
+        BlocProvider(
+          create:
+              (context) => LoginBloc(
+                authRepository: AuthRepository(ServiceHttpClient()),
+              ),
+        ),
+        BlocProvider(
+          create:
+              (context) => RegisterBloc(
+                authRepository: AuthRepository(ServiceHttpClient()),
+              ),
+        ),
+        BlocProvider(
+          create:
+              (context) => ProfileBuyerBloc(
+                profileBuyerRepository: ProfileBuyerRepository(
+                  ServiceHttpClient(),
+                ),
+              ),
+        ),
+        BlocProvider(
+          create:
+              (context) => GetBurungTersediaBloc(
+                getAllBurungTersediaRepository: GetAllBurungTersediaRepository(
+                  ServiceHttpClient(),
+                ),
+              ),
+        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo ',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         ),
-        home : const LoginScreen(),
-      ));
+        home: const LoginScreen(),
+      ),
+    );
   }
 }
 
@@ -78,8 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ), 
-      
+      ),
     );
   }
 }

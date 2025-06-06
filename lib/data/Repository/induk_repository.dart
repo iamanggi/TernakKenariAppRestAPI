@@ -4,7 +4,6 @@ import 'package:canary/data/model/request/admin/induk_request_model.dart';
 import 'package:canary/data/model/response/get_all_induk_response.dart';
 import 'package:canary/services/service_http_client.dart';
 import 'package:dartz/dartz.dart';
-import 'package:http/http.dart';
 
 class IndukRepository {
   final ServiceHttpClient _serviceHttpClient ;

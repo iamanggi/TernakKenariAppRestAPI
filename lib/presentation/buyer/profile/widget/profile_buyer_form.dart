@@ -1,3 +1,4 @@
+
 import 'package:canary/data/model/request/buyer/buyer_profile_request_model.dart';
 import 'package:canary/presentation/buyer/profile/bloc/profile_buyer_bloc.dart';
 import 'package:flutter/material.dart';
@@ -30,19 +31,19 @@ class ProfileBuyerInputFormState extends State<ProfileBuyerInputForm> {
               children: [
                 TextFormField(
                   controller: nameController,
-                  decoration: InputDecoration(labelText: "Nama"),
+                  decoration: const InputDecoration(labelText: "Nama"),
                   validator: (value) =>
                       value!.isEmpty ? "Nama tidak boleh kosong" : null,
                 ),
                 TextFormField(
                   controller: addressController,
-                  decoration: InputDecoration(labelText: "Alamat"),
+                  decoration: const InputDecoration(labelText: "Alamat"),
                   validator: (value) =>
                       value!.isEmpty ? "Alamat tidak boleh kosong" : null,
                 ),
                 TextFormField(
                   controller: phoneController,
-                  decoration: InputDecoration(labelText: "No HP"),
+                  decoration: const InputDecoration(labelText: "No HP"),
                   validator: (value) =>
                       value!.isEmpty ? "Nomor HP tidak boleh kosong" : null,
                 ),
@@ -58,6 +59,8 @@ class ProfileBuyerInputFormState extends State<ProfileBuyerInputForm> {
                         SnackBar(content: Text(state.profile.message)),
                       );
                     } else if (state is ProfileBuyerError) {
+                      // Tampilkan error ke debug console dan UI
+                      print("ProfileBuyerError: ${state.message}");
                       ScaffoldMessenger.of(
                         context,
                       ).showSnackBar(SnackBar(content: Text(state.message)));
@@ -75,19 +78,23 @@ class ProfileBuyerInputFormState extends State<ProfileBuyerInputForm> {
                                   phone: phoneController.text,
                                   photo: "",
                                 );
+
+                                // Tampilkan data yang dikirim di debug console
+                                print("Mengirim data profil: ${request.toJson()}");
+
                                 context.read<ProfileBuyerBloc>().add(
-                                  AddProfileBuyerEvent(request),
+                                  AddProfileBuyerEvent(requestModel: request),
                                 );
                               }
                             },
                       child: isLoading
-                          ? CircularProgressIndicator(
+                          ? const CircularProgressIndicator(
                               strokeWidth: 2,
                               valueColor: AlwaysStoppedAnimation<Color>(
                                 Colors.white,
                               ),
                             )
-                          : Text("Simpan Profil"),
+                          : const Text("Simpan Profil"),
                     );
                   },
                 ),

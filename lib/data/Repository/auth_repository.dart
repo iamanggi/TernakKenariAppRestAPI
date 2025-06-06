@@ -1,9 +1,9 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:canary/data/model/request/auth/login_request_model.dart';
 import 'package:canary/data/model/request/auth/register_request_model.dart';
 import 'package:canary/data/model/response/auth/auth_response_model.dart';
-import 'package:canary/data/model/response/auth/login_response_model.dart';
 import 'package:canary/services/service_http_client.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -19,7 +19,7 @@ class AuthRepository {
   ) async {
     try {
       final response = await _serviceHttpClient.post(
-        'login',
+        "login",
         requestModel.toMap(),
       );
       final jsonResponse = json.decode(response.body);
@@ -33,12 +33,15 @@ class AuthRepository {
           key: "userRole",
           value: loginResponse.user!.role,
         );
+        log("Login successful: ${loginResponse.message}");
         return Right(loginResponse);
       } else {
-        return Left(jsonResponse['message'] ?? 'Login failed');
+        log("Login failed: ${jsonResponse['message']}");
+        return Left(jsonResponse['message'] ?? "Login failed");
       }
     } catch (e) {
-      return Left("An error occured while logging in:");
+      log("Error in login: $e");
+      return Left("An error occurred while logging in.");
     }
   }
 
@@ -51,14 +54,18 @@ class AuthRepository {
         requestModel.toMap(),
       );
       final jsonResponse = json.decode(response.body);
-      final registerResponse = jsonResponse['message'];
       if (response.statusCode == 201) {
+        final registerResponse = jsonResponse['message'] as String;
+        log("Registration successful: ${registerResponse}");
         return Right(registerResponse);
       } else {
-        return Left(jsonResponse['message'] ?? 'Registration failed');
+        log("Registration failed: ${jsonResponse['message']}");
+        return Left(jsonResponse['message'] ?? "Registration failed");
       }
     } catch (e) {
-      return Left("An error occured while registering. : $e");
+      log("Error in registration: $e");
+      return Left("An error occurred while registering.");
     }
   }
+  
 }

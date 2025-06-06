@@ -5,6 +5,7 @@ import 'package:canary/core/core.dart';
 import 'package:canary/data/model/request/auth/login_request_model.dart';
 import 'package:canary/presentation/auth/bloc/login/login_bloc.dart';
 import 'package:canary/presentation/auth/register_screen.dart';
+import 'package:canary/presentation/buyer/profile/buyer_profile_screen.dart';
 import 'package:canary/presentation/buyer/profile/widget/profile_view_buyer.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -101,16 +102,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       final role = state.responseModel.user?.role
                           ?.toLowerCase();
                       if (role == 'admin') {
-                        context.pushAndRemoveUntil(
-                          // const AdminConfirmScreen(),
-                          // (route) => false,
-                        );
+                        // context.pushAndRemoveUntil(
+                        //   // const AdminConfirmScreen(),
+                        //   // (route) => false,
+                        // );
                       } else if (role == 'buyer') {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(state.responseModel.message!)),
                         );
                         context.pushAndRemoveUntil(
-                          const BuyerProfilePage(),
+                          const BuyerProfileScreen(),
                           (route) => false,
                         );
                       } else {
